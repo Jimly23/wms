@@ -18,7 +18,7 @@
     </div>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md flex-col hidden md:flex z-10 md:min-h-screen">
+    <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md flex-col hidden md:flex z-10 md:min-h-screen flex-shrink-0">
         <div class="p-6 border-b border-gray-200 flex-shrink-0">
             <h2 class="text-xl font-bold text-blue-600">Simpel Stok</h2>
             <div class="text-xs text-gray-500 mt-1">Hello, {{ Auth::check() ? Auth::user()->name : 'Tamu (Guest)' }}</div>
@@ -58,7 +58,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full max-w-full">
+    <main class="flex-1 p-4 md:p-8 min-w-0 overflow-y-auto">
         <!-- Display Flash Messages -->
         @if(session('success'))
             <div class="mb-4 bg-green-50 border-l-4 border-green-400 p-4 rounded text-green-700">
