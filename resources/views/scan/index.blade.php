@@ -11,8 +11,7 @@
 
     <!-- Scanner Form -->
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-        <form action="{{ route('scan.search') }}" method="POST" class="flex flex-col md:flex-row items-center gap-4">
-            @csrf
+        <form action="{{ route('scan.search') }}" method="GET" class="flex flex-col md:flex-row items-center gap-4">
             <div class="flex-1 w-full relative">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

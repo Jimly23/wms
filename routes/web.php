@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 
     // Barcode Scan
     Route::get('/scan', [\App\Http\Controllers\ScanController::class, 'index'])->name('scan.index');
-    Route::post('/scan', [\App\Http\Controllers\ScanController::class, 'search'])->name('scan.search');
+    Route::get('/scan/search', [\App\Http\Controllers\ScanController::class, 'search'])->name('scan.search');
 
     // Laporan
     Route::get('/reports', [\App\Http\Controllers\ReportController::class, 'index'])->name('reports.index');

@@ -37,7 +37,7 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script>
         new QRCode(document.getElementById("qrcode"), {
-            text: "{{ $rack->barcode }}",
+            text: "{!! route('scan.search', ['barcode' => $rack->barcode]) !!}",
             width: 200,
             height: 200,
             colorDark: "#000000",
