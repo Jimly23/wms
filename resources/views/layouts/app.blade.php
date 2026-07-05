@@ -6,9 +6,19 @@
     <title>Manajemen Stok</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100 flex min-h-screen">
+<body class="bg-gray-100 min-h-screen flex flex-col md:flex-row">
+    <!-- Mobile Header -->
+    <div class="md:hidden bg-white shadow-sm p-4 flex justify-between items-center z-20 relative">
+        <h2 class="text-xl font-bold text-blue-600">Simpel Stok</h2>
+        <button id="mobileMenuBtn" class="text-gray-500 focus:outline-none p-2 rounded-md hover:bg-gray-100">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+
     <!-- Sidebar -->
-    <aside class="w-64 bg-white shadow-md flex flex-col">
+    <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md flex-col hidden md:flex z-10 md:min-h-screen">
         <div class="p-6 border-b border-gray-200 flex-shrink-0">
             <h2 class="text-xl font-bold text-blue-600">Simpel Stok</h2>
             <div class="text-xs text-gray-500 mt-1">Hello, {{ Auth::check() ? Auth::user()->name : 'Tamu (Guest)' }}</div>
@@ -48,7 +58,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-8 overflow-y-auto">
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto w-full max-w-full">
         <!-- Display Flash Messages -->
         @if(session('success'))
             <div class="mb-4 bg-green-50 border-l-4 border-green-400 p-4 rounded text-green-700">
@@ -63,5 +73,24 @@
 
         @yield('content')
     </main>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.getElementById('mobileMenuBtn');
+            if(btn) {
+                btn.addEventListener('click', function() {
+                    var sidebar = document.getElementById('sidebar');
+                    if (sidebar.classList.contains('hidden')) {
+                        sidebar.classList.remove('hidden');
+                        sidebar.classList.add('flex');
+                    } else {
+                        sidebar.classList.add('hidden');
+                        sidebar.classList.remove('flex');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
