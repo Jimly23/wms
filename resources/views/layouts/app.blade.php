@@ -11,7 +11,7 @@
     <aside class="w-64 bg-white shadow-md flex flex-col">
         <div class="p-6 border-b border-gray-200 flex-shrink-0">
             <h2 class="text-xl font-bold text-blue-600">Simpel Stok</h2>
-            <div class="text-xs text-gray-500 mt-1">Hello, {{ Auth::user()->name }}</div>
+            <div class="text-xs text-gray-500 mt-1">Hello, {{ Auth::check() ? Auth::user()->name : 'Tamu (Guest)' }}</div>
         </div>
         <nav class="p-4 space-y-2 flex-grow overflow-y-auto">
             <a href="{{ route('dashboard') }}" class="block px-4 py-2 {{ request()->routeIs('dashboard') ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700 hover:bg-gray-50' }} rounded-lg">Dashboard</a>
@@ -36,10 +36,14 @@
             
         </nav>
         <div class="p-4 border-t border-gray-200">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg font-medium">Logout</button>
-            </form>
+            @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg font-medium">Logout</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="block text-center w-full px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg font-medium shadow-sm transition">Login Staff</a>
+            @endauth
         </div>
     </aside>
 

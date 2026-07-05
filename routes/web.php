@@ -12,6 +12,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'authenticate'])->name('login.post');
 });
 
+// Barcode Scan (Publicly accessible)
+Route::get('/scan', [\App\Http\Controllers\ScanController::class, 'index'])->name('scan.index');
+Route::get('/scan/search', [\App\Http\Controllers\ScanController::class, 'search'])->name('scan.search');
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     
@@ -24,9 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('goods-in', \App\Http\Controllers\GoodsInController::class)->except(['edit', 'update']);
     Route::resource('goods-out', \App\Http\Controllers\GoodsOutController::class)->except(['edit', 'update']);
 
-    // Barcode Scan
-    Route::get('/scan', [\App\Http\Controllers\ScanController::class, 'index'])->name('scan.index');
-    Route::get('/scan/search', [\App\Http\Controllers\ScanController::class, 'search'])->name('scan.search');
+
 
     // Laporan
     Route::get('/reports', [\App\Http\Controllers\ReportController::class, 'index'])->name('reports.index');
