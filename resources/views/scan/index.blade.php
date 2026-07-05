@@ -78,6 +78,42 @@
                     @else
                         <p class="text-gray-500 text-sm italic">Rak ini kosong. Tidak ada barang.</p>
                     @endif
+
+                    <h4 class="font-bold text-gray-800 mt-8 mb-3 border-b pb-2">Riwayat Transaksi (Keluar / Masuk) di Rak Ini</h4>
+                    @if(isset($history) && $history->count() > 0)
+                        <div class="overflow-x-auto rounded-lg border border-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200 text-sm">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Tgl</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Barang</th>
+                                        <th class="px-4 py-3 text-center font-medium text-gray-500 uppercase tracking-wider">Tipe</th>
+                                        <th class="px-4 py-3 text-center font-medium text-gray-500 uppercase tracking-wider">Qty</th>
+                                        <th class="px-4 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">Petugas</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    @foreach($history as $trx)
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3 whitespace-nowrap">{{ \Carbon\Carbon::parse($trx->tanggal)->format('d/m/Y') }}</td>
+                                        <td class="px-4 py-3">{{ $trx->item->nama_barang ?? '-' }}</td>
+                                        <td class="px-4 py-3 text-center">
+                                            @if($trx->transaction_type == 'masuk')
+                                                <span class="inline-flex px-2 text-xs font-bold leading-5 rounded-full bg-green-100 text-green-700">Masuk</span>
+                                            @else
+                                                <span class="inline-flex px-2 text-xs font-bold leading-5 rounded-full bg-red-100 text-red-700">Keluar</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3 text-center font-bold">{{ $trx->qty }}</td>
+                                        <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ $trx->createdBy->name ?? '-' }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <p class="text-gray-500 text-sm italic">Belum ada riwayat transaksi barang masuk atau keluar untuk rak ini.</p>
+                    @endif
                 </div>
             </div>
         @endif

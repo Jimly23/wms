@@ -22,7 +22,27 @@ class ScanController extends Controller
 
         $rack = Rack::where('barcode', $keyword)->with('items')->first();
         if ($rack) {
-            return view('scan.index', ['rackResult' => $rack, 'keyword' => $keyword]);
+            $goodsIn = \App\Models\GoodsIn::whereHas('item', function($q) use ($rack) {
+                $q->where('rack_id', $rack->id);
+            })->with(['item', 'createdBy'])->get()->map(function($t) {
+                $t->transaction_type = 'masuk';
+                return $t;
+            });
+            
+            $goodsOut = \App\Models\GoodsOut::whereHas('item', function($q) use ($rack) {
+                $q->where('rack_id', $rack->id);
+            })->with(['item', 'createdBy'])->get()->map(function($t) {
+                $t->transaction_type = 'keluar';
+                return $t;
+            });
+            
+            $history = $goodsIn->concat($goodsOut)->sortByDesc('tanggal')->values();
+
+            return view('scan.index', [
+                'rackResult' => $rack, 
+                'history' => $history,
+                'keyword' => $keyword
+            ]);
         }
         
         $item = Item::where('kode_barang', $keyword)->with('rack')->first();

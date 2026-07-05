@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="text-2xl font-bold text-gray-800 mb-6">Dashboard</h1>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col justify-between">
             <p class="text-sm font-medium text-gray-500">Total Rak</p>
             <p class="text-3xl font-bold text-blue-600 mt-2">{{ number_format($totalRak) }}</p>
